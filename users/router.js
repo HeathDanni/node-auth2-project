@@ -1,10 +1,11 @@
 const express = require("express")
 const Users = require("./model")
 const bcrypt = require("bcryptjs")
+const {restrict} = require("./middleware")
 
 const router = express.Router()
 
-router.get("/users", async (req, res, next) => {
+router.get("/users", restrict(), async (req, res, next) => {
     try {
         res.json(await Users.find())
     }

@@ -20,6 +20,12 @@ server.use((err, req, res, next) => {
 })
 //creating an error message for when res is an error
 
+server.use(session({
+    resave: false,
+    saveUninitialized: false,
+    secret: "this is a secret ;)"
+}))
+
 server.listen(port, () => {
     console.log(`Server running at port ${port}`)
 })
