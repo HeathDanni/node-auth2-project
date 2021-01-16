@@ -1,7 +1,9 @@
 const express = require("express")
 const Users = require("./model")
 const bcrypt = require("bcryptjs")
+const jwt = require("jsonwebtoken")
 const {restrict} = require("./middleware")
+
 
 const router = express.Router()
 
@@ -43,7 +45,7 @@ router.post("/login", async (req, res, next) => {
         
         if (!user) {
             return res.status(401).json({
-                message: "invalid credentials"
+                message: "You shall not pass!"
             })
         }
 
@@ -51,32 +53,39 @@ router.post("/login", async (req, res, next) => {
 
         if (!passwordValid) {
             return res.status(401).json({
-                message: "invalid credentials"
+                message: "You shall not pass!"
             })
         }
-        req.session.user = user
+
+
+        const token = jwt.sign({
+            userId: user.id,
+            userName: user.name
+        }, process.env.JWT_SECRET)
 
         res.json({
-            message: `Welcome, ${user.username}!`
+            message: `Welcome, ${user.username}!`,
+            token: token
         })
+
     } catch(err) {
         next(err)
     }
 })
 
-router.get("/logout", async (req, res, next) => {
-    try {
-        req.session.destroy((err) => {
-            if (err) {
-                next(err)
-            } else {
-                res.status(204).end()
-            }
-        })
-    }
-    catch (err) {
-        next(err)
-    }
-})
+// router.get("/logout", async (req, res, next) => {
+//     try {
+//         req.session.destroy((err) => {
+//             if (err) {
+//                 next(err)
+//             } else {
+//                 res.status(204).end()
+//             }
+//         })
+//     }
+//     catch (err) {
+//         next(err)
+//     }
+// })
 
 module.exports = router

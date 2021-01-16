@@ -13,9 +13,11 @@
     "session": "^0.1.0",
     "sqlite3": "^4.2.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "dotenv": "^8.2.0"
+  },
   "scripts": {
-    "server": "nodemon index.js",
+    "server": "nodemon --require dotenv/config index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

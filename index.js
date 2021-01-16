@@ -10,11 +10,6 @@ const server = express()
 const port = process.env.PORT || 5000
 //set port to 5000 or to the port the environment might use
 server.use(express.json())
-server.use(session({
-    resave: false,
-    saveUninitialized: false,
-    secret: "this is a secret ;)"
-}))
 server.use(userRouter)
 
 
