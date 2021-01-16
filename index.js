@@ -1,6 +1,8 @@
 const express = require("express")
-//inport express for the server
+//import express for the server
 const userRouter = require("./users/router")
+//import router to be used in server
+const session = require("express-session")
 
 
 const server = express()
