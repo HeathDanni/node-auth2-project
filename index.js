@@ -1,5 +1,6 @@
 const express = require("express")
 //inport express for the server
+const userRouter = require("./users/router")
 
 
 const server = express()
@@ -7,6 +8,7 @@ const server = express()
 const port = process.env.PORT || 5000
 //set port to 5000 or to the port the environment might use
 server.use(express.json())
+server.use(userRouter)
 
 
 server.use((err, req, res, next) => {
