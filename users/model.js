@@ -7,11 +7,13 @@ async function add(user) {
 
 function find() {
     return db("users")
+        .select("id", "username")
 }
 
 function findById(id) {
     return db("users")
         .where("id", id)
+        .select("id", "username")
         .first()
 }
 
